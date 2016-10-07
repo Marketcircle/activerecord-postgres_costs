@@ -1,4 +1,16 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in activerecord-postgres_costs.gemspec
 gemspec
+
+group :offline do
+  gem 'rake'
+end
+
+group :development, :test do
+  gem 'awesome_print'
+  gem 'byebug'
+end
+
+group :test do
+  gem 'minitest'
+end
