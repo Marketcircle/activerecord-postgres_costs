@@ -13,4 +13,13 @@ module ActiveRecord::ConnectionAdapters::PostgreSQL::DatabaseStatements
     document.map { |plan| plan['Plan'] }
   end
 
+  # @return [Array<Hash>]
+  def explain_analyze_costs arel, binds = []
+    sql = "EXPLAIN (FORMAT JSON, ANALYZE, COSTS, BUFFERS) " +
+          to_sql(arel, binds)
+    result = exec_query(sql, 'EXPLAIN ANALYZE', binds)
+    document = JSON.parse result.rows.first.first
+    document.map { |plan| plan['Plan'] }
+  end
+
 end
